@@ -1,0 +1,9 @@
+E:\Semester 3\.net core\RealtorsPortal\RealtorsPortal\obj\Debug\net8.0\RealtorsPortal.csproj.AssemblyReference.cache
+E:\Semester 3\.net core\RealtorsPortal\RealtorsPortal\obj\Debug\net8.0\rpswa.dswa.cache.json
+E:\Semester 3\.net core\RealtorsPortal\RealtorsPortal\obj\Debug\net8.0\RealtorsPortal.GeneratedMSBuildEditorConfig.editorconfig
+E:\Semester 3\.net core\RealtorsPortal\RealtorsPortal\obj\Debug\net8.0\RealtorsPortal.AssemblyInfoInputs.cache
+E:\Semester 3\.net core\RealtorsPortal\RealtorsPortal\obj\Debug\net8.0\RealtorsPortal.AssemblyInfo.cs
+E:\Semester 3\.net core\RealtorsPortal\RealtorsPortal\obj\Debug\net8.0\RealtorsPortal.csproj.CoreCompileInputs.cache
+E:\Semester 3\.net core\RealtorsPortal\RealtorsPortal\obj\Debug\net8.0\RealtorsPortal.MvcApplicationPartsAssemblyInfo.cache
+E:\Semester 3\.net core\RealtorsPortal\RealtorsPortal\obj\Debug\net8.0\RealtorsPortal.RazorAssemblyInfo.cache
+E:\Semester 3\.net core\RealtorsPortal\RealtorsPortal\obj\Debug\net8.0\RealtorsPortal.RazorAssemblyInfo.cs

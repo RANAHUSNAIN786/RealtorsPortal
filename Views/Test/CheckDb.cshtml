@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Database Test";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h3>Database Connection Test</h3>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-@(ViewBag.Error == null ? "success" : "danger")">
+                    <h4>@ViewBag.Message</h4>
+                    @if (ViewBag.Error != null)
+                    {
+                        <p>@ViewBag.Error</p>
+                    }
+                </div>
+            }
+            
+            @if (ViewBag.CategoryCount != null)
+            {
+                <p><strong>Categories in Database:</strong> @ViewBag.CategoryCount</p>
+                <p><strong>Users in Database:</strong> @ViewBag.UserCount</p>
+                
+                <a href="/" class="btn btn-primary">Go to Home</a>
+            }
+        </div>
+    </div>
+</div>
