@@ -18,19 +18,9 @@ namespace RealtorsPortal.Controllers
 
         public IActionResult Index()
         {
-            var featuredProperties = _context.Properties
-                .Where(p => p.IsFeatured && p.IsApproved)
-                .Include(p => p.Images)
-                .Include(p => p.Category)
-                .Take(6)
-                .ToList();
+         
 
-            var categories = _context.Categories
-                .Where(c => c.IsActive)
-                .ToList();
-
-            ViewBag.FeaturedProperties = featuredProperties;
-            ViewBag.Categories = categories;
+            
 
             return View();
         }
@@ -122,19 +112,7 @@ namespace RealtorsPortal.Controllers
         }
     }
 
-    // ? BlogPost class ko yahan define karo
-    public class BlogPost
-    {
-        public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Excerpt { get; set; } = string.Empty;
-        public string Content { get; set; } = string.Empty;
-        public string ImageUrl { get; set; } = string.Empty;
-        public DateTime Date { get; set; }
-        public string Author { get; set; } = string.Empty;
-        public string Category { get; set; } = string.Empty;
-        public List<string> Tags { get; set; } = new List<string>();
-    }
+    
 
     public class ErrorViewModel
     {

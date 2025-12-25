@@ -17,7 +17,7 @@ namespace RealtorsPortal.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "8.0.22")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -165,7 +165,8 @@ namespace RealtorsPortal.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -183,7 +184,8 @@ namespace RealtorsPortal.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -210,14 +212,14 @@ namespace RealtorsPortal.Migrations
 
                     b.Property<string>("PhoneNumber2")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ProfilePicture")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -225,13 +227,17 @@ namespace RealtorsPortal.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("UserType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -259,11 +265,13 @@ namespace RealtorsPortal.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("IconClass")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -273,6 +281,9 @@ namespace RealtorsPortal.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -281,56 +292,20 @@ namespace RealtorsPortal.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 12, 17, 10, 48, 19, 969, DateTimeKind.Local).AddTicks(118),
-                            Description = "Residential houses",
-                            IconClass = "fas fa-house",
+                            CreatedAt = new DateTime(2025, 12, 24, 1, 1, 42, 831, DateTimeKind.Local).AddTicks(6197),
+                            Description = "Houses, Apartments, Villas",
+                            IconClass = "fas fa-home",
                             IsActive = true,
-                            Name = "House"
+                            Name = "Residential"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 12, 17, 10, 48, 19, 969, DateTimeKind.Local).AddTicks(138),
-                            Description = "Flats and apartments",
+                            CreatedAt = new DateTime(2025, 12, 24, 1, 1, 42, 831, DateTimeKind.Local).AddTicks(6200),
+                            Description = "Shops, Offices, Land",
                             IconClass = "fas fa-building",
                             IsActive = true,
-                            Name = "Apartment"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedAt = new DateTime(2025, 12, 17, 10, 48, 19, 969, DateTimeKind.Local).AddTicks(141),
-                            Description = "Commercial shops",
-                            IconClass = "fas fa-store",
-                            IsActive = true,
-                            Name = "Shop"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedAt = new DateTime(2025, 12, 17, 10, 48, 19, 969, DateTimeKind.Local).AddTicks(143),
-                            Description = "Office spaces",
-                            IconClass = "fas fa-briefcase",
-                            IsActive = true,
-                            Name = "Office"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedAt = new DateTime(2025, 12, 17, 10, 48, 19, 969, DateTimeKind.Local).AddTicks(145),
-                            Description = "Plots and land",
-                            IconClass = "fas fa-mountain",
-                            IsActive = true,
-                            Name = "Land"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedAt = new DateTime(2025, 12, 17, 10, 48, 19, 969, DateTimeKind.Local).AddTicks(147),
-                            Description = "Luxury villas",
-                            IconClass = "fas fa-archway",
-                            IsActive = true,
-                            Name = "Villa"
+                            Name = "Commercial"
                         });
                 });
 
@@ -347,33 +322,52 @@ namespace RealtorsPortal.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Message")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int?>("PropertyId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Reply")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("Subject")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatedAt");
+
                     b.HasIndex("PropertyId");
+
+                    b.HasIndex("Status");
 
                     b.ToTable("ContactMessages");
                 });
@@ -386,21 +380,25 @@ namespace RealtorsPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AdLimit")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("DurationDays")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<int>("MaxAds")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaxImagesPerAd")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -410,6 +408,9 @@ namespace RealtorsPortal.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Packages");
@@ -418,46 +419,26 @@ namespace RealtorsPortal.Migrations
                         new
                         {
                             Id = 1,
-                            AdLimit = 1,
-                            CreatedAt = new DateTime(2025, 12, 17, 10, 48, 19, 969, DateTimeKind.Local).AddTicks(521),
-                            Description = "Free package for basic users",
-                            DurationDays = 30,
+                            CreatedAt = new DateTime(2025, 12, 24, 1, 1, 42, 831, DateTimeKind.Local).AddTicks(5947),
+                            Description = "",
+                            DurationDays = 7,
                             IsActive = true,
-                            Name = "Basic",
+                            MaxAds = 1,
+                            MaxImagesPerAd = 3,
+                            Name = "Free Basic",
                             Price = 0m
                         },
                         new
                         {
                             Id = 2,
-                            AdLimit = 5,
-                            CreatedAt = new DateTime(2025, 12, 17, 10, 48, 19, 969, DateTimeKind.Local).AddTicks(528),
-                            Description = "Silver package for regular users",
-                            DurationDays = 60,
+                            CreatedAt = new DateTime(2025, 12, 24, 1, 1, 42, 831, DateTimeKind.Local).AddTicks(5952),
+                            Description = "",
+                            DurationDays = 30,
                             IsActive = true,
-                            Name = "Silver",
-                            Price = 1000m
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AdLimit = 20,
-                            CreatedAt = new DateTime(2025, 12, 17, 10, 48, 19, 969, DateTimeKind.Local).AddTicks(537),
-                            Description = "Gold package for power users",
-                            DurationDays = 90,
-                            IsActive = true,
-                            Name = "Gold",
-                            Price = 2500m
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AdLimit = 50,
-                            CreatedAt = new DateTime(2025, 12, 17, 10, 48, 19, 969, DateTimeKind.Local).AddTicks(541),
-                            Description = "Platinum package for agents",
-                            DurationDays = 120,
-                            IsActive = true,
-                            Name = "Platinum",
-                            Price = 5000m
+                            MaxAds = 10,
+                            MaxImagesPerAd = 10,
+                            Name = "Premium",
+                            Price = 29.99m
                         });
                 });
 
@@ -472,38 +453,52 @@ namespace RealtorsPortal.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime?>("CompletedDate")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Details")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int?>("PackageId")
                         .HasColumnType("int");
 
                     b.Property<string>("PayerEmail")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("TransactionId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PackageId");
+
+                    b.HasIndex("PaymentDate");
 
                     b.HasIndex("UserId");
 
@@ -520,14 +515,16 @@ namespace RealtorsPortal.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<double?>("Area")
                         .HasColumnType("float");
 
                     b.Property<string>("AreaName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int?>("Bathrooms")
                         .HasColumnType("int");
@@ -540,11 +537,13 @@ namespace RealtorsPortal.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -568,7 +567,8 @@ namespace RealtorsPortal.Migrations
 
                     b.Property<string>("PropertyType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -577,13 +577,14 @@ namespace RealtorsPortal.Migrations
 
                     b.Property<string>("TransactionType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("ViewCount")
@@ -592,6 +593,10 @@ namespace RealtorsPortal.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsApproved");
 
                     b.HasIndex("UserId");
 
@@ -606,17 +611,31 @@ namespace RealtorsPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("AltText")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<bool>("IsPrimary")
-                        .HasColumnType("bit");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
 
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UploadedAt")
+                    b.Property<string>("ThumbnailPath")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -634,10 +653,10 @@ namespace RealtorsPortal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AdsPosted")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ExpiryDate")
+                    b.Property<DateTime?>("ExpiryDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
@@ -646,14 +665,20 @@ namespace RealtorsPortal.Migrations
                     b.Property<int>("PackageId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("PurchaseDate")
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ExpiryDate");
 
                     b.HasIndex("PackageId");
 
@@ -716,8 +741,9 @@ namespace RealtorsPortal.Migrations
             modelBuilder.Entity("RealtorsPortal.Models.ContactMessage", b =>
                 {
                     b.HasOne("RealtorsPortal.Models.Property", "Property")
-                        .WithMany()
-                        .HasForeignKey("PropertyId");
+                        .WithMany("ContactMessages")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Property");
                 });
@@ -732,8 +758,7 @@ namespace RealtorsPortal.Migrations
                     b.HasOne("RealtorsPortal.Models.ApplicationUser", "User")
                         .WithMany("Payments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Package");
 
@@ -751,8 +776,7 @@ namespace RealtorsPortal.Migrations
                     b.HasOne("RealtorsPortal.Models.ApplicationUser", "User")
                         .WithMany("Properties")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Category");
 
@@ -810,6 +834,8 @@ namespace RealtorsPortal.Migrations
 
             modelBuilder.Entity("RealtorsPortal.Models.Property", b =>
                 {
+                    b.Navigation("ContactMessages");
+
                     b.Navigation("Images");
                 });
 #pragma warning restore 612, 618

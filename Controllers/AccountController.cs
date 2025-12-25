@@ -47,10 +47,18 @@ namespace RealtorsPortal.Controllers
                     _logger.LogInformation("User logged in.");
                     return RedirectToLocal(returnUrl);
                 }
+
+                if (result.RequiresTwoFactor)
+                {
+                    // Handle two-factor authentication
+                }
+                else if (result.IsLockedOut)
+                {
+                    ModelState.AddModelError(string.Empty, "Account locked out. Please try again later.");
+                }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
                 }
             }
             return View(model);
@@ -70,12 +78,20 @@ namespace RealtorsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Check if email already exists
+                var existingUser = await _userManager.FindByEmailAsync(model.Email);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError(string.Empty, "Email already registered.");
+                    return View(model);
+                }
+
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
                     Email = model.Email,
                     FullName = model.FullName,
-                    PhoneNumber = model.PhoneNumber,
+                    PhoneNumber = model.PhoneNumber, // ✅ CORRECTED: Phone se PhoneNumber
                     UserType = model.UserType,
                     CreatedAt = DateTime.Now
                 };
@@ -88,7 +104,7 @@ namespace RealtorsPortal.Controllers
                     await _userManager.AddToRoleAsync(user, model.UserType);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation($"User {user.Email} created a new account with password.");
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -157,6 +173,43 @@ namespace RealtorsPortal.Controllers
                 if (result.Succeeded)
                 {
                     TempData["SuccessMessage"] = "Profile updated successfully!";
+                    return RedirectToAction("Profile");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+            return View(model);
+        }
+
+        // GET: /Account/ChangePassword
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        // POST: /Account/ChangePassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    TempData["SuccessMessage"] = "Password changed successfully!";
                     return RedirectToAction("Profile");
                 }
 
